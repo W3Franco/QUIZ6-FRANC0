@@ -1,0 +1,10 @@
+Django~=5.1.2
+asgiref==3.8.1
+bootstrap4==0.1.0
+crispy-bootstrap5==2024.10
+Django==5.1.2
+django-allauth==65.0.2
+django-crispy-forms==2.3
+pip==24.2
+sqlparse==0.5.1
+tzdata==2024.2

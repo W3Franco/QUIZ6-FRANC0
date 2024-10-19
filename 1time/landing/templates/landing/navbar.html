@@ -1,0 +1,155 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand"
+                {% if user.is_authenticated %}
+                href="{% url 'post-list' %}"
+                {% else %}
+                href="{% url 'index' %}"
+                {% endif %}
+            >1time</a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Additional nav items can go here -->
+                </ul>
+                {% if user.is_authenticated %}
+                <button id="toggle-theme" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-sun" id="theme-icon"></i> <!-- Sun icon for light mode -->
+                </button>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                        <span class="dropdown-arrow"></span> <!-- New dropdown arrow -->
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</div>
+
+<script>
+    document.getElementById('toggle-theme').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        // Save the preference in local storage
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            document.getElementById('theme-icon').classList.remove('fa-sun');
+            document.getElementById('theme-icon').classList.add('fa-moon'); // Change to moon icon
+        } else {
+            localStorage.setItem('theme', 'light');
+            document.getElementById('theme-icon').classList.remove('fa-moon');
+            document.getElementById('theme-icon').classList.add('fa-sun'); // Change to sun icon
+        }
+    });
+
+    // Load the theme from local storage on page load
+    window.onload = function() {
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-icon').classList.remove('fa-sun');
+            document.getElementById('theme-icon').classList.add('fa-moon'); // Change to moon icon
+        }
+    };
+</script>
+
+<style>
+    /* Basic styles for light mode */
+    body {
+        background-color: white;
+        color: black;
+    }
+
+    /* Styles for dark mode (YouTube-like) */
+    .dark-mode {
+        background-color: #181818; /* Dark gray background */
+        color: white;
+    }
+
+    /* Brand link style */
+    .navbar-brand {
+        color: black; /* Light mode color */
+    }
+
+    .dark-mode .navbar-brand {
+        color: white; /* Dark mode color */
+    }
+
+    /* Navbar link styles */
+    .navbar-light .navbar-nav .nav-link {
+        color: black;
+    }
+
+    .dark-mode .navbar-light .navbar-nav .nav-link {
+        color: white;
+    }
+
+    /* Dropdown menu styles */
+    .dropdown-menu {
+        background-color: white; /* Light mode background */
+        color: black; /* Light mode text color */
+    }
+
+    .dark-mode .dropdown-menu {
+        background-color: #303030; /* Dark mode background */
+        color: white; /* Dark mode text color */
+    }
+
+    .dark-mode .dropdown-item {
+        color: white; /* Dark mode item text color */
+    }
+
+    .dropdown-item:hover {
+        background-color: #f8f9fa; /* Light mode hover color */
+    }
+
+    .dark-mode .dropdown-item:hover {
+        background-color: #444; /* Dark mode hover color */
+    }
+
+    /* Icon styles */
+    .navbar-light .nav-link i {
+        color: black; /* Light mode icon color */
+ }
+
+    .dark-mode .nav-link i {
+        color : white; /* Dark mode icon color */
+    }
+
+    /* New dropdown arrow styles */
+    .dropdown-arrow {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 5px 0 5px;
+        border-color: black transparent transparent transparent;
+    }
+
+    .dark-mode .dropdown-arrow {
+        border-color: white transparent transparent transparent;
+    }
+
+    /* Remove old blue arrow styles */
+    .nav-link.dropdown-toggle::after {
+        display: none;
+    }
+
+    /* Responsive navbar styles */
+    @media (max-width: 991px) {
+        .navbar-light {
+            background-color: white; /* Light mode background for smaller screens */
+        }
+
+        .dark-mode .navbar-light {
+            background-color: #181818; /* Dark mode background for smaller screens */
+        }
+    }
+</style>
